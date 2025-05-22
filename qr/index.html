@@ -54,17 +54,9 @@
 
   <div id="inputFields"></div>
 
-  <div class="inline-label">
-    <label for="color">QR 코드 색상:</label>
-    <input type="color" id="color" value="#000000" onchange="updateColorPreview('color','colorPreview')">
-    <div id="colorPreview" class="color-preview" style="background-color:#000000;"></div>
-  </div>
+  <input type="color" id="color" value="#000000" title="QR 코드 색상" onchange="updateColorPreview('color','colorPreview')">
 
-  <div class="inline-label">
-    <label for="bgColor">배경 색상:</label>
-    <input type="color" id="bgColor" value="#ffffff" onchange="updateColorPreview('bgColor','bgPreview')">
-    <div id="bgPreview" class="color-preview" style="background-color:#ffffff;"></div>
-  </div>
+  <input type="color" id="bgColor" value="#ffffff" title="배경 색상" onchange="updateColorPreview('bgColor','bgPreview')">
 
   <label for="gradient">QR 코드 색상 (인스타 그라데이션):</label>
   <select id="gradient" onchange="updateGradientPreview()">
