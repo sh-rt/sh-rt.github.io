@@ -9,36 +9,51 @@
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       document.getElementById("uaDisplay").innerText = userAgent;
 
-      // 예시: Instagram 앱에서 열었는지 여부 출력
+      const appScheme = "https://instagram.com/hatc_an" // "myapp://content/123"; // 앱 내 URI
+      const iosStoreUrl = "https://instagram.com/hatc_an" //"https://apps.apple.com/app/id1234567890";
+      const androidStoreUrl = "https://instagram.com/hatc_an" // "https://play.google.com/store/apps/details?id=com.myapp";
+      const webFallbackUrl = "https://instagram.com/hatc_an" // "https://myapp.com/content/123";
+      const instagramProfileUrl = "https://instagram.com/hatc_an";
+
+      // Instagram in-app browser 감지
       const isInstagram = userAgent.includes("Instagram");
-      document.getElementById("result").innerText = isInstagram
-        ? "📱 Instagram 앱에서 열림"
-        : "🌐 일반 브라우저 또는 다른 앱에서 열림";
+
+      if (isInstagram) {
+        // Instagram으로 열렸다면, Instagram 프로필로 이동
+        window.location.href = instagramProfileUrl;
+        return;
+      }
+
+      // iOS
+      if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        window.location = appScheme;
+        setTimeout(() => {
+          window.location = iosStoreUrl;
+        }, 1500);
+      }
+      // Android
+      else if (/Android/i.test(userAgent)) {
+        window.location = appScheme;
+        setTimeout(() => {
+          window.location = androidStoreUrl;
+        }, 1500);
+      }
+      // PC 등
+      else {
+        window.location = webFallbackUrl;
+      }
     };
   </script>
   <style>
     body {
+      text-align: center;
       font-family: sans-serif;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    #uaDisplay {
-      font-size: 0.9em;
-      background-color: #eee;
-      padding: 10px;
-      border-radius: 5px;
-      word-break: break-all;
+      padding-top: 50px;
     }
   </style>
 </head>
 <body>
-  <h2>📋 UserAgent 감지 결과</h2>
-  <div id="result">분석 중...</div>
-  <h3>🧾 Raw UserAgent:</h3>
-  <div id="uaDisplay">로딩 중...</div>
+  <h2>Redirecting...</h2>
+  <p>잠시만 기다려 주세요...</p>
 </body>
 </html>
