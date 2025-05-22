@@ -17,32 +17,37 @@
       // Instagram in-app browser 감지
       const isInstagram = userAgent.includes("Instagram");
 
-      if (isInstagram) {
-        setTimeout(() => {
-          window.location.href = instagramProfileUrl;
-        }, 1500);      
-        return;
-      }
+      openInstagram()
 
-      // iOS
-      if (/iPhone|iPad|iPod/i.test(userAgent)) {
-        window.location = appScheme;
-        setTimeout(() => {
-          window.location = iosStoreUrl;
-        }, 1500);
+      function deeplink(){
+        if (isInstagram) {
+          window.location.href = instagramProfileUrl;
+          return;
+        }
+  
+        // iOS
+        if (/iPhone|iPad|iPod/i.test(userAgent)) {
+          window.location = appScheme;
+          setTimeout(() => {
+            window.location = iosStoreUrl;
+          }, 1500);
+        }
+        // Android
+        else if (/Android/i.test(userAgent)) {
+          window.location = appScheme;
+          setTimeout(() => {
+            window.location = androidStoreUrl;
+          }, 1500);
+        }
+        // PC 등
+        else {
+          window.location = webFallbackUrl;
+        }
       }
-      // Android
-      else if (/Android/i.test(userAgent)) {
-        window.location = appScheme;
-        setTimeout(() => {
-          window.location = androidStoreUrl;
-        }, 1500);
+      function openInstagram() {
+          window.location.href = instagramProfileUrl;
       }
-      // PC 등
-      else {
-        window.location = webFallbackUrl;
-      }
-    };
+    }
   </script>
   <style>
     body {
