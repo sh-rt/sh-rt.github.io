@@ -68,9 +68,11 @@
     let qrCanvas = null;
 
     function updateFields() {
-      const type = document.getElementById("qrType").value;
+      const typeSelect = document.getElementById("qrType");
+      const type = typeSelect.value || "text";
       const fields = document.getElementById("inputFields");
       let html = '';
+
       switch (type) {
         case "text":
           html = '<textarea id="text" placeholder="내용 입력"></textarea>';
@@ -90,11 +92,11 @@
         case "wifi":
           html = '<input type="text" id="ssid" placeholder="WiFi 이름">' +
                  '<input type="text" id="password" placeholder="비밀번호">' +
-                 '<select id="encryption">
-                    <option value="WPA">WPA/WPA2</option>
-                    <option value="WEP">WEP</option>
-                    <option value="">없음</option>
-                  </select>';
+                 '<select id="encryption">' +
+                   '<option value="WPA">WPA/WPA2</option>' +
+                   '<option value="WEP">WEP</option>' +
+                   '<option value="">없음</option>' +
+                 '</select>';
           break;
         case "geo":
           html = '<input type="text" id="lat" placeholder="위도">' +
@@ -219,8 +221,7 @@
       link.click();
     }
 
-    // 초기 로딩 시 텍스트 유형 표시
-    updateFields();
+    document.addEventListener("DOMContentLoaded", updateFields);
   </script>
 </body>
 </html>
