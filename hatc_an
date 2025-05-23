@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    window.onload = function () {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      const instagramProfileUrl = "https://instagram.com/hatc_an";
+      const appScheme = instagramProfileUrl // "myapp://content/123"; // 앱 내 URI
+      const iosStoreUrl = instagramProfileUrl //"https://apps.apple.com/app/id1234567890";
+      const androidStoreUrl = instagramProfileUrl // "https://play.google.com/store/apps/details?id=com.myapp";
+      const webFallbackUrl = instagramProfileUrl // "https://myapp.com/content/123";
+      
+      // Instagram in-app browser 감지
+      const isInstagram = userAgent.includes("Instagram");
+
+      openInstagram()
+
+      function deeplink(){
+        if (isInstagram) {
+          window.location.href = instagramProfileUrl;
+          return;
+        }
+  
+        // iOS
+        if (/iPhone|iPad|iPod/i.test(userAgent)) {
+          window.location = appScheme;
+          setTimeout(() => {
+            window.location = iosStoreUrl;
+          }, 1500);
+        }
+        // Android
+        else if (/Android/i.test(userAgent)) {
+          window.location = appScheme;
+          setTimeout(() => {
+            window.location = androidStoreUrl;
+          }, 1500);
+        }
+        // PC 등
+        else {
+          window.location = webFallbackUrl;
+        }
+      }
+      function openInstagram() {
+          window.location.href = instagramProfileUrl;
+      }
+    }
+  </script>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      padding-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Redirecting...</h2>
+  <p>잠시만 기다려 주세요...</p>
+</body>
+</html>
